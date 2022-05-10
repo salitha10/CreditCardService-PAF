@@ -81,7 +81,9 @@
 				<div id="alertSuccess" class="alert alert-success"></div>
 				<div id="alertError" class="alert alert-danger"></div>
 
+				<div id="card_table"></div>
 			</div>
+			
 		</div>
 	</div>
 </html>

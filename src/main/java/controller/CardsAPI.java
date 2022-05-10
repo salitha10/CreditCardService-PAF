@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +27,23 @@ public class CardsAPI extends HttpServlet {
 	
 			 CreditCardController  cc = new CreditCardController();
 			 String output = cc.insertCard(card_number, cvv, date, name_on_card, card_issuer);
-			 response.getWriter().write(output);
 			 
+			 String html = "<h1>Hello</h1>";
+			 //Get items
+			 String cards = cc.viewCards();
+			 
+			 PrintWriter out = response.getWriter();
+		     response.setContentType("application/json");
+		     response.setCharacterEncoding("UTF-8");
+			 response.getWriter().write(cards);
+			 
+			}
+	
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			 throws ServletException, IOException
+			{
+			
 			}
 
 }

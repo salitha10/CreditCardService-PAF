@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Locale;
 
 import javax.ws.rs.Consumes;
@@ -92,10 +93,37 @@ public class CreditCardController {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String viewCards() {
-		Gson gson = new Gson();
+		String output;
 		cards = cardService.viewCards(currentUser);
-		String jsonString  = gson.toJson(cards);
-		return jsonString;
+		
+		//Return table
+		output = "<table class='table table-striped' border='1'>"
+				 + "<caption>List of users</caption>"
+				 + "<tr><th>Card Number</th>"
+				 + "<th>CVV</th>"
+				 + "<th>Expiery Date</th>"
+				 + "<th>Name</th>"
+				 + "<th>Card Issuer</th>"
+				 + "<th>Update</th><th>Remove</th></tr>";
+		
+		Iterator iter = cards.iterator();
+	      while (iter.hasNext()) {
+	    	  CreditCard card = (CreditCard) iter.next();
+	    	  
+	    	  output += "<tr><td>" + card.getCard_number() + "</td>";
+	    	  output += "<td>" + card.getCvv() + "</td>";
+	    	  output += "<td>" + card.getCard_issuer() + "</td>";
+	    	  output += "<td>" + card.getDate() + "</td>";
+	    	  output += "<td>" + card.getCard_issuer() + "</td>"; 
+	    	  
+	    	  
+	    	  output += "<td><input name='btnUpdate' type='button' value='Update' "
+	    			  + "class='btnUpdate btn btn-secondary' data-itemid='" + card.getCard_number() + "'></td>"
+	    			  + "<td><input name='btnRemove' type='button' value='Remove' "
+	    			  + "class='btnRemove btn btn-danger' data-itemid='" + card.getCard_number() + "'></td></tr>";
+	      }
+	      
+		return output;
 	}
 
 	//Delete

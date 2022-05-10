@@ -1,7 +1,12 @@
 
+var userID = "123";
+
 $(document).ready(function() {
 	$("#alertSuccess").hide();
 	$("#alertError").hide();
+	
+	getAllCards(userID);
+	
 });
 
 
@@ -22,15 +27,30 @@ $(document).on("click", "#btnSave", function(event) {
 			dataType: "text",
 			complete: function(response, status) {
 				if (response.responseText == "Inserted Successfully" && status == "success") {
-					$("#alertSuccess").text(response.responseText);
+					$("#alertSuccess").text();
 					$("#alertSuccess").show();
 				} else {
-					$("#alertError").text(response.responseText);
+					$("#alertError").text();
 					$("#alertError").show();
 				}
+				//$("#formCreditCard").hide();
+				$("#card_table").html(response.responseText);
+				
 			}
 		});
 
-
 });
 
+function getAllCards(userID){
+	$.ajax(
+		{
+			url: "CardsAPI",
+			type: "GET",
+			data: userID,
+			dataType: "text",
+			complete: function(response, status) {
+				
+				console.log(response);
+			}
+		});
+}
