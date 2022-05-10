@@ -1,30 +1,36 @@
 
-$(document).ready(function()
-{
- $("#alertSuccess").hide();
- $("#alertError").hide();
+$(document).ready(function() {
+	$("#alertSuccess").hide();
+	$("#alertError").hide();
 });
 
 
-$(document).on("click", "#btnSave", function(event)
-{
+//SAVE BUTTON
+$(document).on("click", "#btnSave", function(event) {
 
-$("#alertSuccess").text("");
-$("#alertSuccess").hide();
-$("#alertError").text("");
-$("#alertError").hide();
+	$("#alertSuccess").text("");
+	$("#alertSuccess").hide();
+	$("#alertError").text("");
+	$("#alertError").hide();
 
-	// Form validation-------------------
-var status = validateItemForm();
-// If not valid
-if (status != true)
-{
- $("#alertError").text(status);
- $("#alertError").show();
-return;
-}
-	
+
+	$.ajax(
+		{
+			url: "CardsAPI",
+			type: "POST",
+			data: $("#formCreditCard").serialize(),
+			dataType: "text",
+			complete: function(response, status) {
+				if (response.responseText == "Inserted Successfully" && status == "success") {
+					$("#alertSuccess").text(response.responseText);
+					$("#alertSuccess").show();
+				} else {
+					$("#alertError").text(response.responseText);
+					$("#alertError").show();
+				}
+			}
+		});
+
+
 });
-
-
 

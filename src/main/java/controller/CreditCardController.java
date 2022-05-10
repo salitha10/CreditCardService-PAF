@@ -44,7 +44,7 @@ public class CreditCardController {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String insertCard(@FormParam("card_number") String cardNumber, @FormParam("cvv") int cvv
-			,@FormParam("date") String date, @FormParam("name_on_card") String name, @FormParam("card_issuer") String issuer,@HeaderParam("Authorization") String auth) {
+			,@FormParam("date") String date, @FormParam("name_on_card") String name, @FormParam("card_issuer") String issuer) {
 
 		String output = "";
 		
