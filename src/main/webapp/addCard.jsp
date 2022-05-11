@@ -11,14 +11,16 @@
 
 <head>
 <meta charset="ISO-8859-1">
-<title>Add New Credit Card</title>
+<title>Credit Card</title>
 </head>
 <body>
 
 	<div class="container">
 		<div class="row">
-			<div class="col-6">
-				<h1 class="m-3">Add New Credit Card</h1>
+		
+			<div class="card col-6" style="margin-top:20px">
+			<div style="padding:10px">
+				<h1 id="txtForm">Add New Credit Card</h1>
 
 				<form id="formCreditCard" name="formCreditCard">
 
@@ -69,7 +71,10 @@
 						</div>
 					</div>
 
-
+					<!-- Hidden -->
+					<input type="hidden" id="hidItemIDSave"
+					 name="hidItemIDSave" value="">
+ 
 					<!-- Button -->
 					<div class="input-group input-group-sm mb-3">
 						<input class="btn btn-primary" type="button" id="btnSave"
@@ -83,7 +88,14 @@
 				<div id="alertError" class="alert alert-danger"></div>
 
 
-				<div id="card_table"></div>
+				</div>
+			</div>
+
+			<div clas="row">
+			<div id="allCardsTable" class="card col-12" style="margin-top:10px">
+			<h1>All Cards</h1>
+			<div id="card_table"></div>
+			</div>
 			</div>
 			
 		</div>

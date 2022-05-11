@@ -4,8 +4,8 @@ var userID = "123";
 $(document).ready(function() {
 	$("#alertSuccess").hide();
 	$("#alertError").hide();
+	$("#allCardsTable").hide();
 
-	getAllCards(userID);
 
 });
 
@@ -17,6 +17,7 @@ function onItemSaveComplete(response, status) {
 		if (resultSet.status.trim() == "success") {
 			$("#alertSuccess").text("Successfully saved.");
 			$("#alertSuccess").show();
+			$("#allCardsTable").show();
 			$("#card_table").html(resultSet.data);
 		} else if (resultSet.status.trim() == "error") {
 			$("#alertError").text(resultSet.data);
@@ -38,6 +39,7 @@ function onItemDeleteComplete(response, status) {
 		if (resultSet.status.trim() == "success") {
 			$("#alertSuccess").text("Successfully deleted.");
 			$("#alertSuccess").show();
+			$("#allCardsTable").show();
 			$("#card_table").html(resultSet.data);
 		} else if (resultSet.status.trim() == "error") {
 			$("#alertError").text(resultSet.data);
@@ -54,6 +56,9 @@ function onItemDeleteComplete(response, status) {
 
 //SAVE BUTTON
 $(document).on("click", "#btnSave", function(event) {
+	
+	$("#card_number").prop('disabled', false);
+	var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT";
 
 	$("#alertSuccess").text("");
 	$("#alertSuccess").hide();
@@ -64,7 +69,7 @@ $(document).on("click", "#btnSave", function(event) {
 	$.ajax(
 		{
 			url: "CardsAPI",
-			type: "POST",
+			type: type,
 			data: $("#formCreditCard").serialize(),
 			dataType: "text",
 			complete: function(response, status) {
@@ -102,4 +107,20 @@ $(document).on("click", "#btnRemove", function(event) {
 
 			}
 		});
+});
+
+
+$(document).on("click", "#btnUpdate", function(event) {
+
+	$("#txtForm").text("Update Card");
+
+	$("#hidItemIDSave").val($(this).closest("tr").find('td:eq(0)').text());
+	$("#card_number").val($(this).closest("tr").find('td:eq(0)').text());
+	$("#card_number").prop('disabled', true);
+	
+	$("#cvv").val($(this).closest("tr").find('td:eq(1)').text());
+	$("#name").val($(this).closest("tr").find('td:eq(3)').text());
+	$("#exp_date").val($(this).closest("tr").find('td:eq(2)').text());
+	$("#issuer").val($(this).closest("tr").find('td:eq(4)').text());
+
 });

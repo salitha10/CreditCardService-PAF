@@ -81,7 +81,7 @@ public class CreditCardServiceImpl implements CreditCardService{
 			query = "";
 
 		} catch (Exception e) {
-			output = "Error while inserting the credit card";
+			output = "error";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -200,7 +200,7 @@ public class CreditCardServiceImpl implements CreditCardService{
 			query = "";
 
 		} catch (Exception e) {
-			output = "Error while updating the credit card";
+			output = "error";
 			System.err.println(e.getMessage());
 		}
 		return output;

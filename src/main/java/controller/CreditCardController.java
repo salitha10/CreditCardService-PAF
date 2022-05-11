@@ -103,7 +103,6 @@ public class CreditCardController {
 		else {
 		//Return table
 		output = "<table class='table table-striped' border='1'>"
-				 + "<caption>List of users</caption>"
 				 + "<tr><th>Card Number</th>"
 				 + "<th>CVV</th>"
 				 + "<th>Expiery Date</th>"
@@ -117,13 +116,13 @@ public class CreditCardController {
 	    	  
 	    	  output += "<tr><td>" + card.getCard_number() + "</td>";
 	    	  output += "<td>" + card.getCvv() + "</td>";
-	    	  output += "<td>" + card.getCard_issuer() + "</td>";
 	    	  output += "<td>" + card.getDate() + "</td>";
+	    	  output += "<td>" + card.getName_on_card()+ "</td>";
 	    	  output += "<td>" + card.getCard_issuer() + "</td>"; 
 	    	  
 	    	  
-	    	  output += "<td><input name='btnUpdate' type='button' value='Update' "
-	    			  + "class='btnUpdate btn btn-secondary' data-card_number='" + card.getCard_number() + "'></td>"
+	    	  output += "<td><input id='btnUpdate' type='button' value='Update' "
+	    			  + "class='btn btn-secondary' data-card_number='" + card.getCard_number() + "'></td>"
 	    			  + "<td><input id='btnRemove' type='button' value='Remove' "
 	    			  + "class='btn btn-danger' data-card_number='" + card.getCard_number() + "'></td></tr>";
 	      }

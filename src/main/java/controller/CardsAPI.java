@@ -39,7 +39,7 @@ public class CardsAPI extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Gson gson =  new Gson();
+		Gson gson = new Gson();
 		String res;
 //			 String user_ID = request.getParameter("");
 		String card_number = request.getParameter("card_number");
@@ -56,14 +56,13 @@ public class CardsAPI extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		
-		if(output == "Inserted Successfully") {
+
+		if (output != "error") {
 			res = "{\"status\":\"success\", \"data\": \"" + cards + "\"}";
-		}
-		else{
+		} else {
 			res = "{\"status\":\"error\", \"data\": \"" + output + "\"}";
 		}
-		
+
 		response.getWriter().write(res);
 
 	}
@@ -77,6 +76,8 @@ public class CardsAPI extends HttpServlet {
 			throws ServletException, IOException {
 		Map paras = getParasMap(request);
 
+		String res;
+
 		String card_number = paras.get("card_number").toString();
 		int cvv = Integer.parseInt(paras.get("cvv").toString());
 		String date = paras.get("exp_date").toString();
@@ -84,20 +85,34 @@ public class CardsAPI extends HttpServlet {
 		String card_issuer = paras.get("issuer").toString();
 
 		String output = cc.updateCard(card_number, cvv, date, name_on_card, card_issuer);
-		response.getWriter().write(output);
+
+		// Get items
+		String cards = cc.viewCards();
+
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
+		if (output != "error") {
+			res = "{\"status\":\"success\", \"data\": \"" + cards + "\"}";
+		} else {
+			res = "{\"status\":\"error\", \"data\": \"" + output + "\"}";
+		}
+
+		response.getWriter().write(res);
+
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Map paras = getParasMap(request);
 		String output = cc.deleteCard(paras.get("card_number").toString());
-		
+
 		String cards = cc.viewCards();
-		
-		if(output != "error") {
+
+		if (output != "error") {
 			output = "{\"status\":\"success\", \"data\": \"" + cards + "\"}";
-		}
-		else{
+		} else {
 			output = "{\"status\":\"error\", \"data\": \"" + output + "\"}";
 		}
 		response.getWriter().write(output);
