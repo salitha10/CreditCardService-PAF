@@ -164,7 +164,7 @@ public class CreditCardServiceImpl implements CreditCardService{
 			}
 
 		}catch(Exception e) {
-			output = "Error deleting data " + e.getMessage();
+			output = "error";
 			System.err.println(output);
 			return output;
 		}

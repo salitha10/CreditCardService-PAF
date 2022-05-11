@@ -93,9 +93,14 @@ public class CreditCardController {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String viewCards() {
-		String output;
+		String output = "";
+		
 		cards = cardService.viewCards(currentUser);
 		
+		if(cards == null) {
+			output = "Error loading data";
+		}
+		else {
 		//Return table
 		output = "<table class='table table-striped' border='1'>"
 				 + "<caption>List of users</caption>"
@@ -118,11 +123,12 @@ public class CreditCardController {
 	    	  
 	    	  
 	    	  output += "<td><input name='btnUpdate' type='button' value='Update' "
-	    			  + "class='btnUpdate btn btn-secondary' data-itemid='" + card.getCard_number() + "'></td>"
-	    			  + "<td><input name='btnRemove' type='button' value='Remove' "
-	    			  + "class='btnRemove btn btn-danger' data-itemid='" + card.getCard_number() + "'></td></tr>";
+	    			  + "class='btnUpdate btn btn-secondary' data-card_number='" + card.getCard_number() + "'></td>"
+	    			  + "<td><input id='btnRemove' type='button' value='Remove' "
+	    			  + "class='btn btn-danger' data-card_number='" + card.getCard_number() + "'></td></tr>";
 	      }
-	      
+
+		}
 		return output;
 	}
 
@@ -130,7 +136,7 @@ public class CreditCardController {
 	@DELETE
 	@Path("/{card_number}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteCards(@PathParam("card_number") String CardNum) {
+	public String deleteCard(@PathParam("card_number") String CardNum) {
 		String response = cardService.deleteCard(CardNum);
 		return response;
 	}
