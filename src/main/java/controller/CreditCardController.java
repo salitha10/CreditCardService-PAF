@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Locale;
 
 import javax.ws.rs.Consumes;
@@ -44,7 +45,7 @@ public class CreditCardController {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String insertCard(@FormParam("card_number") String cardNumber, @FormParam("cvv") int cvv
-			,@FormParam("date") String date, @FormParam("name_on_card") String name, @FormParam("card_issuer") String issuer,@HeaderParam("Authorization") String auth) {
+			,@FormParam("date") String date, @FormParam("name_on_card") String name, @FormParam("card_issuer") String issuer) {
 
 		String output = "";
 		
@@ -92,17 +93,49 @@ public class CreditCardController {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String viewCards() {
-		Gson gson = new Gson();
+		String output = "";
+		
 		cards = cardService.viewCards(currentUser);
-		String jsonString  = gson.toJson(cards);
-		return jsonString;
+		
+		if(cards == null) {
+			output = "Error loading data";
+		}
+		else {
+		//Return table
+		output = "<table class='table table-striped' border='1'>"
+				 + "<tr><th>Card Number</th>"
+				 + "<th>CVV</th>"
+				 + "<th>Expiery Date</th>"
+				 + "<th>Name</th>"
+				 + "<th>Card Issuer</th>"
+				 + "<th>Update</th><th>Remove</th></tr>";
+		
+		Iterator iter = cards.iterator();
+	      while (iter.hasNext()) {
+	    	  CreditCard card = (CreditCard) iter.next();
+	    	  
+	    	  output += "<tr><td>" + card.getCard_number() + "</td>";
+	    	  output += "<td>" + card.getCvv() + "</td>";
+	    	  output += "<td>" + card.getDate() + "</td>";
+	    	  output += "<td>" + card.getName_on_card()+ "</td>";
+	    	  output += "<td>" + card.getCard_issuer() + "</td>"; 
+	    	  
+	    	  
+	    	  output += "<td><input id='btnUpdate' type='button' value='Update' "
+	    			  + "class='btn btn-secondary' data-card_number='" + card.getCard_number() + "'></td>"
+	    			  + "<td><input id='btnRemove' type='button' value='Remove' "
+	    			  + "class='btn btn-danger' data-card_number='" + card.getCard_number() + "'></td></tr>";
+	      }
+
+		}
+		return output;
 	}
 
 	//Delete
 	@DELETE
 	@Path("/{card_number}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteCards(@PathParam("card_number") String CardNum) {
+	public String deleteCard(@PathParam("card_number") String CardNum) {
 		String response = cardService.deleteCard(CardNum);
 		return response;
 	}
