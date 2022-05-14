@@ -42,6 +42,7 @@ public class CardsAPI extends HttpServlet {
 		Gson gson = new Gson();
 		String res;
 //			 String user_ID = request.getParameter("");
+		
 		String card_number = request.getParameter("card_number");
 		int cvv = Integer.parseInt(request.getParameter("cvv"));
 		String date = request.getParameter("exp_date");
