@@ -29,7 +29,7 @@
 							<span class="input-group-text" id="lblNum">Card Number: </span>
 						</div>
 						<input type="number" step="1" min="0" id="card_number"
-							name="card_number">
+							name="card_number" required>
 					</div>
 
 					<!-- CVV -->
@@ -38,7 +38,7 @@
 							<span class="input-group-text" id="lblCvv">CVV: </span>
 						</div>
 						<input type="number" step="1" min="0" maxlength="3" id="cvv"
-							name="cvv">
+							name="cvv" required>
 					</div>
 
 					<!-- Name -->
@@ -46,7 +46,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="lblName">Name: </span>
 						</div>
-						<input type="text" id="name" name="name">
+						<input type="text" id="name" name="name" required>
 					</div>
 
 					<!-- Expiry date -->
@@ -54,14 +54,14 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="lblDate">Expiry Date: </span>
 						</div>
-						<input type="date" id="exp_date" name="exp_date">
+						<input type="date" id="exp_date" name="exp_date" required>
 					</div>
 
 					<!-- Issuer -->
 					<div class="input-group input-group-sm mb-3">
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="lblDate">Expiry Date: </span>
-							<select id="issuer" name="issuer">
+							<select id="issuer" name="issuer" required>
 								<option value="0">--Select Card Issuer--</option>
 								<option value="VISA">VISA</option>
 								<option value="MASTER CARD">MASTER CARD</option>
