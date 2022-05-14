@@ -17,8 +17,11 @@ function onItemSaveComplete(response, status) {
 		if (resultSet.status.trim() == "success") {
 			$("#alertSuccess").text("Successfully saved.");
 			$("#alertSuccess").show();
+			
+			//Show table
 			$("#allCardsTable").show();
 			$("#card_table").html(resultSet.data);
+			
 		} else if (resultSet.status.trim() == "error") {
 			$("#alertError").text(resultSet.data);
 			$("#alertError").show();

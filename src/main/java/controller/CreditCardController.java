@@ -7,7 +7,6 @@ import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -19,7 +18,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import com.google.gson.Gson;
 import com.google.protobuf.TextFormat.ParseException;
 import model.CreditCard;
@@ -28,7 +26,7 @@ import service.CreditCardServiceImpl;
 
 
 @Path("/CreditCard")
-public class CreditCardController {
+public class CreditCardController{
 
 
 	//Card service
