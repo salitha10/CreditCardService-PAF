@@ -17,11 +17,11 @@ function onItemSaveComplete(response, status) {
 		if (resultSet.status.trim() == "success") {
 			$("#alertSuccess").text("Successfully saved.");
 			$("#alertSuccess").show();
-			
+
 			//Show table
 			$("#allCardsTable").show();
 			$("#card_table").html(resultSet.data);
-			
+
 		} else if (resultSet.status.trim() == "error") {
 			$("#alertError").text(resultSet.data);
 			$("#alertError").show();
@@ -57,9 +57,31 @@ function onItemDeleteComplete(response, status) {
 	}
 }
 
+function validateItemForm() {
+
+	console.log($("#card_number").val());
+
+	if ($("#card_number").val().trim() == "") {
+		return "Invalid card number";
+	}
+	if ($("#cvv").val().trim() == "") {
+		return "Invalid CVV";
+	}
+	if ($("#name").val().trim() == "") {
+		return "Invalid name";
+	}
+	if ($("#exp_date").val().trim() == "") {
+		return "Invalid date";
+	}
+	if ($("#issuer").val().trim() == "") {
+		return "Invalid issuer";
+	}
+	return true;
+}
+
 //SAVE BUTTON
 $(document).on("click", "#btnSave", function(event) {
-	
+
 	$("#card_number").prop('disabled', false);
 	var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT";
 
@@ -68,6 +90,12 @@ $(document).on("click", "#btnSave", function(event) {
 	$("#alertError").text("");
 	$("#alertError").hide();
 
+	var status = validateItemForm();
+	if (status != true) {
+		$("#alertError").text(status);
+		$("#alertError").show();
+		return;
+	}
 
 	$.ajax(
 		{
@@ -80,7 +108,7 @@ $(document).on("click", "#btnSave", function(event) {
 				onItemSaveComplete(response, status);
 			}
 		});
-
+	
 });
 
 function getAllCards(userID) {
@@ -120,7 +148,7 @@ $(document).on("click", "#btnUpdate", function(event) {
 	$("#hidItemIDSave").val($(this).closest("tr").find('td:eq(0)').text());
 	$("#card_number").val($(this).closest("tr").find('td:eq(0)').text());
 	$("#card_number").prop('disabled', true);
-	
+
 	$("#cvv").val($(this).closest("tr").find('td:eq(1)').text());
 	$("#name").val($(this).closest("tr").find('td:eq(3)').text());
 	$("#exp_date").val($(this).closest("tr").find('td:eq(2)').text());
