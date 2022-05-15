@@ -6,6 +6,7 @@ $(document).ready(function() {
 	$("#alertError").hide();
 	$("#allCardsTable").hide();
 
+	getAllCards(userID);
 
 });
 
@@ -57,14 +58,15 @@ function onItemDeleteComplete(response, status) {
 	}
 }
 
+//Validation
 function validateItemForm() {
 
 	console.log($("#card_number").val());
 
-	if ($("#card_number").val().trim() == "") {
+	if ($("#card_number").val().trim() == "" || !$.isNumeric($("#card_number").val().trim())) {
 		return "Invalid card number";
 	}
-	if ($("#cvv").val().trim() == "") {
+	if ($("#cvv").val().trim() == "" || !$.isNumeric($("#cvv").val().trim())) {
 		return "Invalid CVV";
 	}
 	if ($("#name").val().trim() == "") {
@@ -73,7 +75,7 @@ function validateItemForm() {
 	if ($("#exp_date").val().trim() == "") {
 		return "Invalid date";
 	}
-	if ($("#issuer").val().trim() == "") {
+	if ($("#issuer").val().trim() == "--Select Card Issuer--") {
 		return "Invalid issuer";
 	}
 	return true;
@@ -119,8 +121,8 @@ function getAllCards(userID) {
 			data: userID,
 			dataType: "text",
 			complete: function(response, status) {
-
-				console.log(response);
+				$("#allCardsTable").show();
+				$("#card_table").html(response.responseText);
 			}
 		});
 }
@@ -139,7 +141,6 @@ $(document).on("click", "#btnRemove", function(event) {
 			}
 		});
 });
-
 
 $(document).on("click", "#btnUpdate", function(event) {
 

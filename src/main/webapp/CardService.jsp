@@ -15,8 +15,8 @@
 <body>
 
 	<div class="container">
+	
 		<div class="row">
-		
 			<div class="card col-6" style="margin-top:20px">
 			<div style="padding:10px">
 				<h1 id="txtForm">Add New Credit Card</h1>
@@ -73,6 +73,8 @@
 					<!-- Hidden -->
 					<input type="hidden" id="hidItemIDSave"
 					 name="hidItemIDSave" value="">
+					 <input type="hidden" id="userID"
+					 name="hidUserID" value="123">
  
 					<!-- Button -->
 					<div class="input-group input-group-sm mb-3">
@@ -88,7 +90,7 @@
 				</div>
 			</div>
 
-			<div clas="row">
+			<div class="row">
 			<div id="allCardsTable" class="card col-12" style="margin-top:10px">
 			<h1>All Cards</h1>
 			<div id="card_table"></div>
